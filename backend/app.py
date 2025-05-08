@@ -6,7 +6,7 @@ import ssl
 import re
 
 app = Flask(__name__)
-context = ssl._create_unverified_context()
+context = ssl._create_unverified_context() #SSL 인증서  검증하지 않게
 
 def get_news(category):
     url = f"https://www.joongang.co.kr/{category}"
@@ -21,8 +21,9 @@ def get_news(category):
     articles = story_list.select('li')
     items = []
     
+    #db 조작
     db = get_db_connection()
-    cursor = db.cursor()
+    cursor = db.cursor() 
 
     for i in articles:
         headline = i.select_one('.headline') #제목       
@@ -41,7 +42,7 @@ def get_news(category):
             cursor.execute(check_sql, (title, date)) 
             result = cursor.fetchone()
 
-            #중복되는 데이터가 없을 때만 INSERT..
+            #중복되는 데이터가 없을 때만 삽입
             if result[0] == 0:
               sql = "INSERT INTO news (category, title, description, date, link) VALUES (%s, %s, %s, %s,  %s)"
               val = (category, title, description, date, link)
@@ -64,7 +65,7 @@ def get_news(category):
 def home():
     return render_template('index.html') #홈페이지에 접근하면 index.html로 반환
 
-# ✅ 여기에 추가
+# 여기에 추가
 @app.route('/get_news')
 def get_news_route():
     category = request.args.get('category') 
@@ -75,4 +76,4 @@ def get_news_route():
     return jsonify(news) #json으로 html로 보냄
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True) #Flask 서버 실행

@@ -13,6 +13,7 @@
             const ul = document.getElementById("news-list");
             ul.innerHTML = ""; // 기존 뉴스 삭제
             data.forEach((news) => {
+              console.log(news);
               const li = document.createElement("li");
               li.innerHTML = `
               <strong><a href = "${news.link}" target="_blank">${news.title}</a></strong><br/>
@@ -28,17 +29,17 @@
     </script>
   </head>
   <body>
-    <h1>중앙日報 뉴스</h1>
+    <h1>中央日報ニュース</h1>
 
     <div id="category-buttons">
-      <button onclick="loadNews('politics')">정치</button>
-      <button onclick="loadNews('money')">경제</button>
-      <button onclick="loadNews('society')">사회</button>
-      <button onclick="loadNews('world')">국제</button>
-      <button onclick="loadNews('culture')">문화</button>
-      <button onclick="loadNews('sports')">스포츠</button>
-      <button onclick="loadNews('lifestyle')">라이프</button>
-      <button onclick="loadNews('people')">피플</button>
+      <button onclick="loadNews('politics')">政治</button>
+      <button onclick="loadNews('money')">経済</button>
+      <button onclick="loadNews('society')">社会</button>
+      <button onclick="loadNews('world')">国際</button>
+      <button onclick="loadNews('culture')">文化</button>
+      <button onclick="loadNews('sports')">スポーツ</button>
+      <button onclick="loadNews('lifestyle')">ライフ</button>
+      <button onclick="loadNews('people')">ピープル</button>
     </div>
 
     <ul id="news-list"></ul>
